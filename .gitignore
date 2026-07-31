@@ -1,0 +1,4 @@
+.clangd
+CString.o
+libCString.a
+tests
