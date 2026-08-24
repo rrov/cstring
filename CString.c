@@ -2,7 +2,6 @@
 #include <stddef.h>
 #include <string.h>
 #include "CString.h"
-#include <stdio.h>
 
 struct CString *CString_New(size_t length) {
     struct CString *string;
