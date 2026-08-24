@@ -8,8 +8,8 @@ struct CString {
 };
 
 struct CStringArray {
-    struct CString *strings;
     size_t length;
+    struct CString *strings;
 };
 
 /* CString methods */
