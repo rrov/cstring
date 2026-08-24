@@ -1,6 +1,8 @@
 #ifndef CStringLib
 #define CStringLib
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct CString {
     size_t length;
@@ -27,12 +29,18 @@ void CString_free(struct CString *this);
 
 /* CStringArray methods */
 struct CStringArray *CStringArray_New(size_t length); /* Not implemented */
-struct CStringArray *CStringArray_From(size_t length, struct CString *strings[]); /* Not implemented */
-struct CStringArray *CStringArray_forEach(struct CStringArray *strings); /* Not implemented */
-struct CStringArray *CStringArray_filter(struct CStringArray *strings); /* Not implemented */
-struct CStringArray *CStringArray_sort(struct CStringArray *strings); /* Not implemented */
-struct CStringArray *CStringArray_includes(struct CString *string); /* Not implemented */
-struct CString *CStringArray_join(struct CStringArray *strings); /* Not implemented */
-void CStringArray_free(struct CStringArray *strings); /* Not implemented */
+void CStringArray_push(struct CStringArray *this, struct CString *string); /* Not implemented */
+void CStringArray_pop(struct CStringArray *this); /* Not implemented */
+void CStringArray_shift(struct CStringArray *this); /* Not implemented */
+void CStringArray_unshift(struct CStringArray *this, struct CString *string); /* Not implemented */
+void CStringArray_replace(struct CStringArray *this, size_t index, struct CString *string); /* Not implemented */
+struct CStringArray *CStringArray_slice(struct CStringArray *this, size_t start, size_t end); /* Not implemented */
+struct CStringArray *CStringArray_unique(struct CStringArray *this); /* Not implemented */
+void CStringArray_forEach(struct CStringArray *this, void (*f)(struct CString*, size_t index, struct CStringArray*)); /* Not implemented */
+struct CStringArray *CStringArray_filter(struct CStringArray *this, int (*f)(struct CString*, size_t index, struct CStringArray*)); /* Not implemented */
+void CStringArray_sort(struct CStringArray *this); /* Not implemented */
+int CStringArray_includes(struct CStringArray *this, struct CString *string); /* Not implemented */
+struct CString *CStringArray_join(struct CStringArray *this); /* Not implemented */
+void CStringArray_free(struct CStringArray *this); /* Not implemented */
 /*  */
 #endif
