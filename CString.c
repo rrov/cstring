@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <string.h>
 #include "CString.h"
+#include <stdio.h>
 
 struct CString *CString_New(size_t length) {
     struct CString *string;
@@ -44,11 +45,12 @@ struct CString *CString_concat(struct CString *this, struct CString *string) {
 struct CString *CString_substring(struct CString *this, size_t start, size_t end) {
     struct CString *substring;
     if (start > end) return NULL;
-    if (this->length > end) return NULL;
+    if (end > this->length) return NULL;
     substring = CString_New(end - start);
     if (substring == NULL) return NULL;
     strncpy(substring->bytes, &this->bytes[start], end - start);
-    substring->bytes[substring->length] = '\n';
+    substring->length = end - start;
+    substring->bytes[substring->length] = '\0';
     return substring;
 }
 

@@ -17,7 +17,7 @@ struct CString *CString_New(size_t length);
 struct CString *CString_From(char *str);
 struct CString *CString_clone(struct CString *this);
 struct CString *CString_concat(struct CString *this, struct CString *string);
-struct CString *CString_substring(struct CString *this, size_t start, size_t end); /* Not implemented */
+struct CString *CString_substring(struct CString *this, size_t start, size_t end);
 void CString_replaceAll(struct CString *this, struct CString *string); /* Not implemented */
 int CString_equals(struct CString *this, struct CString *string);
 int CString_includes(struct CString *this, struct CString *string);
