@@ -1,8 +1,6 @@
 #ifndef CStringLib
 #define CStringLib
 #include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 struct CString {
     size_t length;
@@ -20,7 +18,7 @@ struct CString *CString_From(char *str);
 struct CString *CString_clone(struct CString *this);
 struct CString *CString_concat(struct CString *this, struct CString *string);
 struct CString *CString_substring(struct CString *this, size_t start, size_t end);
-void CString_replaceAll(struct CString *this, struct CString *string); /* Not implemented */
+struct CString *CString_replaceAll(struct CString *this, struct CString *pattern, struct CString *replacement);
 int CString_equals(struct CString *this, struct CString *string);
 int CString_includes(struct CString *this, struct CString *string);
 struct CStringArray *CString_split(struct CString *this, struct CString *string); /* Not implemented */

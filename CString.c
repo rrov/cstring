@@ -27,9 +27,7 @@ struct CString *CString_From(char *str) {
 }
 
 struct CString *CString_clone(struct CString *this) {
-    struct CString *string = CString_From(this->bytes);
-    if (string == NULL) return NULL;
-    return string;
+    return CString_From(this->bytes);
 }
 
 struct CString *CString_concat(struct CString *this, struct CString *string) {
@@ -51,6 +49,45 @@ struct CString *CString_substring(struct CString *this, size_t start, size_t end
     substring->length = end - start;
     substring->bytes[substring->length] = '\0';
     return substring;
+}
+
+struct CString *CString_replaceAll(struct CString *this, struct CString *pattern, struct CString *replacement) {
+    struct CString *replaced;
+    size_t replacementsCount = 0;
+    size_t thisIndex = 0;
+    size_t patternIndex = 0;
+    size_t replacedIndex = 0;
+    size_t replacementIndex = 0;
+    char *substring;
+
+    if (this->length < pattern->length) return NULL;
+    for (thisIndex = 0; thisIndex < this->length; thisIndex++) {
+        substring = strstr(&this->bytes[thisIndex], pattern->bytes);
+        if (substring == NULL) break;
+        replacementsCount++;
+        thisIndex = (substring - this->bytes) + pattern->length;
+    }
+    replaced = CString_New(replacementsCount * (replacement->length - pattern->length) + this->length);
+    if (replaced == NULL) return NULL;
+    replaced->length = replacementsCount * (replacement->length - pattern->length) + this->length;
+    for (thisIndex = 0; thisIndex < this->length; thisIndex++) {
+        replaced->bytes[replacedIndex] = this->bytes[thisIndex];
+        replacedIndex++;
+        if (this->bytes[thisIndex] == pattern->bytes[patternIndex]) {
+            if (patternIndex == pattern->length - 1) {
+                replacedIndex -= pattern->length;
+                for (replacementIndex = 0; replacementIndex < replacement->length; replacementIndex++) {
+                    replaced->bytes[replacedIndex] = replacement->bytes[replacementIndex];
+                    replacedIndex++;
+                }
+            } else {
+                patternIndex++;
+            }
+        } else {
+            patternIndex = 0;
+        }
+    }
+    return replaced;
 }
 
 int CString_equals(struct CString *this, struct CString *string) {
