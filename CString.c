@@ -80,6 +80,7 @@ struct CString *CString_replaceAll(struct CString *this, struct CString *pattern
                     replaced->bytes[replacedIndex] = replacement->bytes[replacementIndex];
                     replacedIndex++;
                 }
+                patternIndex = 0;
             } else {
                 patternIndex++;
             }
