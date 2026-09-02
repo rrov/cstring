@@ -3,7 +3,7 @@
 #include <string.h>
 #include "CString.h"
 
-struct CString *CString_New(size_t length) {
+static struct CString *CString_New(size_t length) {
     struct CString *string;
     string = malloc(sizeof(struct CString));
     if (string == NULL) return NULL;
@@ -24,6 +24,11 @@ struct CString *CString_From(char *str) {
     string->length = length;
     memcpy(string->bytes, str, length + 1);
     return string;
+}
+
+void CString_init(struct CString *this, char *string) {
+    this->length = strlen(string);
+    this->bytes = string;
 }
 
 struct CString *CString_clone(struct CString *this) {
@@ -65,11 +70,12 @@ struct CString *CString_replaceAll(struct CString *this, struct CString *pattern
         substring = strstr(&this->bytes[thisIndex], pattern->bytes);
         if (substring == NULL) break;
         replacementsCount++;
-        thisIndex = (substring - this->bytes) + pattern->length;
+        thisIndex = (size_t)(substring - this->bytes) + pattern->length;
     }
     replaced = CString_New(replacementsCount * (replacement->length - pattern->length) + this->length);
     if (replaced == NULL) return NULL;
     replaced->length = replacementsCount * (replacement->length - pattern->length) + this->length;
+    replaced->bytes[replaced->length] = '\0';
     for (thisIndex = 0; thisIndex < this->length; thisIndex++) {
         replaced->bytes[replacedIndex] = this->bytes[thisIndex];
         replacedIndex++;

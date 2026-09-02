@@ -13,8 +13,8 @@ struct CStringArray {
 };
 
 /* CString methods */
-struct CString *CString_New(size_t length);
 struct CString *CString_From(char *str);
+void CString_init(struct CString *this, char *str);
 struct CString *CString_clone(struct CString *this);
 struct CString *CString_concat(struct CString *this, struct CString *string);
 struct CString *CString_substring(struct CString *this, size_t start, size_t end);
