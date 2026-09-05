@@ -3,6 +3,7 @@
 #include <string.h>
 #include "CString.h"
 
+/* CString */
 static struct CString *CString_New(size_t length) {
     struct CString *string;
     string = malloc(sizeof(struct CString));
@@ -97,6 +98,12 @@ struct CString *CString_replaceAll(struct CString *this, struct CString *pattern
     return replaced;
 }
 
+/* struct CString *CString_split(struct CString *this, struct CString *delimiter) {
+    size_t i;
+
+    for (i = 0; i < this->length; i++) {}
+} */
+
 int CString_equals(struct CString *this, struct CString *string) {
     int cmpResult = strcmp(this->bytes, string->bytes);
     return cmpResult == 0 ? 1 : 0;
@@ -111,3 +118,27 @@ void CString_free(struct CString *this) {
     free(this->bytes);
     free(this);
 }
+/* */
+
+/* CStringArray */
+struct CStringArray *CStringArray_New(size_t capacity) {
+    struct CStringArray *array;
+
+    array = malloc(sizeof(struct CStringArray));
+    if (array == NULL) return NULL;
+    array->strings = malloc(sizeof(struct CString) * capacity);
+    if (array->strings == NULL) {
+        free(array);
+        return NULL;
+    }
+    array->capacity = capacity;
+    return array;
+}
+
+void CStringArray_push(struct CStringArray *this, struct CString *element) {
+    if (this->capacity <= this->length) return;
+    this->strings[this->length] = element;
+    this->length++;
+}
+
+/* */

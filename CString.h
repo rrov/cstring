@@ -3,13 +3,14 @@
 #include <stddef.h>
 
 struct CString {
-    size_t length;
     char *bytes;
+    size_t length;
 };
 
 struct CStringArray {
+    struct CString **strings;
     size_t length;
-    struct CString *strings;
+    size_t capacity;
 };
 
 /* CString methods */
@@ -21,13 +22,13 @@ struct CString *CString_substring(struct CString *this, size_t start, size_t end
 struct CString *CString_replaceAll(struct CString *this, struct CString *pattern, struct CString *replacement);
 int CString_equals(struct CString *this, struct CString *string);
 int CString_includes(struct CString *this, struct CString *string);
-struct CStringArray *CString_split(struct CString *this, struct CString *string); /* Not implemented */
+struct CStringArray *CString_split(struct CString *this, struct CString *delimiter); /* Not implemented */
 void CString_free(struct CString *this);
 /*  */
 
 /* CStringArray methods */
-struct CStringArray *CStringArray_New(size_t length); /* Not implemented */
-void CStringArray_push(struct CStringArray *this, struct CString *string); /* Not implemented */
+struct CStringArray *CStringArray_New(size_t capacity); /* Not implemented */
+void CStringArray_push(struct CStringArray *this, struct CString *element); /* Not implemented */
 void CStringArray_pop(struct CStringArray *this); /* Not implemented */
 void CStringArray_shift(struct CStringArray *this); /* Not implemented */
 void CStringArray_unshift(struct CStringArray *this, struct CString *string); /* Not implemented */
